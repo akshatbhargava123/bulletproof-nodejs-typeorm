@@ -19,7 +19,14 @@ export default {
   /**
    * That long string from mlab
    */
-  databaseURL: process.env.MONGODB_URI,
+  database: {
+    url: process.env.DB_URL,
+    name: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+  },
 
   /**
    * Your secret sauce
@@ -34,20 +41,11 @@ export default {
   },
 
   /**
-   * Agenda.js stuff
-   */
-  agenda: {
-    dbCollection: process.env.AGENDA_DB_COLLECTION,
-    pooltime: process.env.AGENDA_POOL_TIME,
-    concurrency: parseInt(process.env.AGENDA_CONCURRENCY, 10),
-  },
-
-  /**
    * Agendash config
    */
   agendash: {
     user: 'agendash',
-    password: '123456'
+    password: '123456',
   },
   /**
    * API configs
@@ -60,6 +58,6 @@ export default {
    */
   emails: {
     apiKey: 'API key from mailgun',
-    domain: 'Domain Name from mailgun'
-  }
+    domain: 'Domain Name from mailgun',
+  },
 };

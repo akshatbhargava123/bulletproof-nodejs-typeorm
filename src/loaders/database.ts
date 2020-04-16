@@ -1,19 +1,21 @@
+import path from 'path';
 import config from '../config';
-import { createConnection } from 'typeorm';
+import { createConnection, Connection } from 'typeorm';
 
-export default async (): Promise<Db> => {
+const { database } = config;
+
+export default async (): Promise<Connection | void> => {
   return createConnection({
     type: 'postgres',
-    host: config.databaseURL,
-    port: 3306,
-    username: '',
-    password: 'admin',
-    database: 'test',
-    entities: [__dirname + '/entity/*.js'],
     synchronize: true,
+    url: database.url,
+    port: Number(database.port),
+    username: database.username,
+    password: database.password,
+    database: database.name,
+    migrations: [path.join(__dirname, '..', '/migration/*.ts')],
+    entities: [path.join(__dirname, '..', '/entity/*.ts')],
   })
-    .then(connection => {
-      // here you can start to work with your entities
-    })
+    .then(connection => connection)
     .catch(error => console.log(error));
 };
