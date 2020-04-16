@@ -5,9 +5,10 @@ import Logger from './logger';
 
 // We have to import at least all the events once so they can be triggered
 import './events';
+import { Connection } from 'typeorm';
 
 export default async ({ expressApp }) => {
-  const connection = await dbLoader();
+  const connection = (await dbLoader()) as Connection;
   Logger.info('✌️ DB loaded and connected!');
 
   /**
@@ -18,13 +19,13 @@ export default async ({ expressApp }) => {
    * of writing unit tests, just go and check how beautiful they are!
    */
 
-  const userModel = {
-    name: 'userModel',
-    // Notice the require syntax and the '.default'
-    model: require('../models/user').default,
-  };
-
   // TODO: inject all the repository connections made from the connection instance
+  // const userModel = {
+  //   name: 'userModel',
+  //   // Notice the require syntax and the '.default'
+  //   model: require('../models/user').default,
+  // };
+
   // It returns the agenda instance because it's needed in the subsequent loaders
   await dependencyInjectorLoader({ connection });
   Logger.info('✌️ Dependency Injector loaded');

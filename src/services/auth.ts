@@ -1,11 +1,11 @@
 import { Service, Inject } from 'typedi';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import MailerService from './mailer';
-import config from '../config';
-import argon2 from 'argon2';
-import { randomBytes } from 'crypto';
+// import config from '../config';
+// import argon2 from 'argon2';
+// import { randomBytes } from 'crypto';
 import { EventDispatcher, EventDispatcherInterface } from '../decorators/eventDispatcher';
-import events from '../subscribers/event-types';
+// import events from '../subscribers/event-types';
 
 @Service()
 export default class AuthService {

@@ -1,15 +1,17 @@
 import { Container } from 'typedi';
-import LoggerInstance from './logger';
-import config from '../config';
 import mailgun from 'mailgun-js';
 import { Connection } from 'typeorm';
+import LoggerInstance from './logger';
+import config from '../config';
 
 interface DIOptions {
-  connection: Connection | void;
+  connection: Connection;
 }
 
 export default ({ connection }: DIOptions) => {
   try {
+    // TODO: inject connection and repositories
+    connection.driver;
     // models.forEach(m => {
     //   Container.set(m.name, m.model);
     // });
