@@ -9,26 +9,26 @@ import Logger from './loaders/logger';
 async function startServer() {
   const app = express();
 
-  /**
-   * A little hack here
-   * Import/Export can only be used in 'top-level code'
-   * Well, at least in node 10 without babel and at the time of writing
-   * So we are using good old require.
-   **/
-  await require('./loaders').default({ expressApp: app });
+  try {
+    // initialise application loaders
+    await require('./loaders').default({ expressApp: app });
 
-  app.listen(config.port, err => {
-    if (err) {
-      Logger.error(err);
-      process.exit(1);
-      return;
-    }
-    Logger.info(`
-      ################################################
-      🛡️  Server listening on port: ${config.port} 🛡️ 
-      ################################################
-    `);
-  });
+    // only start app if all loaders are correctly loaded
+    app.listen(config.port, err => {
+      if (err) {
+        Logger.error(err);
+        process.exit(1);
+        return;
+      }
+      Logger.info(`
+        ################################################
+        🛡️  Server listening on port: ${config.port} 🛡️
+        ################################################
+      `);
+    });
+  } catch (error) {
+    Logger.error('🔥 %o', error);
+  }
 }
 
 startServer();

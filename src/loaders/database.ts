@@ -1,10 +1,10 @@
 import path from 'path';
 import config from '../config';
-import { createConnection, Connection } from 'typeorm';
+import { createConnection } from 'typeorm';
 
 const { database } = config;
 
-export default async (): Promise<Connection | void> => {
+export default () => {
   return createConnection({
     type: 'postgres',
     synchronize: true,
@@ -15,7 +15,5 @@ export default async (): Promise<Connection | void> => {
     database: database.name,
     migrations: [path.join(__dirname, '..', '/migration/*.ts')],
     entities: [path.join(__dirname, '..', '/entity/*.ts')],
-  })
-    .then(connection => connection)
-    .catch(error => console.log(error));
+  });
 };
