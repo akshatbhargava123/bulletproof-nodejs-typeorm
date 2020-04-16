@@ -1,13 +1,9 @@
-# Bulletproof Node.js architecture 🛡️
+# Bulletproof Node.js architecture with TypeORM (PostgreSQL) 🛡️
 
-This is the example repository from the blog post ['Bulletproof node.js project architecture'](https://softwareontheroad.com/ideal-nodejs-project-structure?utm_source=github&utm_medium=readme)
+This is a template fork repo of Bulletproof NodeJS repo [here](https://github.com/santiq/bulletproof-nodejs) which I customised according to my needs.
 
-Please read the blog post in order to have a good understanding of the server architecture.
-
-Also, I added lots of comments to the code that are not in the blog post, because they explain the implementation and the reason behind the choices of libraries and some personal opinions and some bad jokes.
-
-The API by itself doesn't do anything fancy, it's just a user CRUD with authentication capabilities.
-Maybe we can transform this into something useful, a more advanced example, just open an issue and let's discuss the future of the repo.
+- Made AgendaJS optional since Job scheduling is not a usual thing in the initial requirements.
+- Added TypeORM and totally removed Mongoose.
 
 ## Development
 
@@ -27,7 +23,7 @@ The first time, you will need to run
 npm install
 ```
 
-Then just start the server with 
+Then just start the server with
 
 ```
 npm run start
@@ -35,11 +31,11 @@ npm run start
 It uses nodemon for livereloading :peace-fingers:
 
 # API Validation
- 
+
  By using celebrate the req.body schema becomes clary defined at route level, so even frontend devs can read what an API endpoint expects without need to writting a documentation that can get outdated quickly.
 
  ```js
- route.post('/signup', 
+ route.post('/signup',
   celebrate({
     body: Joi.object({
       name: Joi.string().required(),
@@ -57,7 +53,7 @@ It uses nodemon for livereloading :peace-fingers:
   "errors": {
     "message": "child \"email\" fails because [\"email\" is required]"
   }
- } 
+ }
  ```
 
 [Read more about celebrate here](https://github.com/arb/celebrate) and [the Joi validation API](https://github.com/hapijs/joi/blob/v15.0.1/API.md)
@@ -66,7 +62,7 @@ It uses nodemon for livereloading :peace-fingers:
 - [x] API Validation layer (Celebrate+Joi)
 - [ ] Unit tests examples
 - [ ] [Cluster mode](https://softwareontheroad.com/nodejs-scalability-issues?utm_source=github&utm_medium=readme)
-- [x] The logging _'layer'_ 
+- [x] The logging _'layer'_
 - [ ] Add agenda dashboard
 - [x] Continuous integration with CircleCI 😍
 - [ ] Deploys script and docs for AWS Elastic Beanstalk and Heroku
@@ -74,7 +70,7 @@ It uses nodemon for livereloading :peace-fingers:
 - [ ] Instructions on typescript debugging with VSCode
 
 
-# FAQ 
+# FAQ
 
  ## Where should I put the FrontEnd code? Is this a good backend for Angular or React or Vue or _whatever_ ?
 
@@ -93,3 +89,8 @@ It uses nodemon for livereloading :peace-fingers:
   I know if you start moving layers into another technology, you will end up with your business/domain logic into npm packages, your routing layer will be pure AWS Lambda functions and your data layer a combination of DynamoDB, Redis, maybe redshift, and Agolia.
 
   Take a deep breath and go slowly, let the business grow and then scale up your product. You will need a team and talented developers anyway.
+
+
+### Credits
+
+Again, all work credit in this repo goes to the Author [Sam Quinn](https://github.com/santiq) as I've just customised it for personal use.
